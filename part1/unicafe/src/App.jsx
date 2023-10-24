@@ -26,6 +26,16 @@ const Paragraph = ({feedback})  => {
     </div>
   )
 }
+
+const Details = ({title, value})  => {
+  return (
+    <div>
+    {
+      <p key={title} > {title} {value} </p>
+    }
+    </div>
+  )
+}
 function App() {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
@@ -59,12 +69,18 @@ function App() {
       value: bad
     }
   ];
+  const total =good + neutral + bad;
+  const avg =(good*1 + neutral*0 + (bad *-1))/total;
+  const prcnt =(good/total)*100;
   return (
     <div>
       <Header title='give feedback'/>
       <Buttom feedback={feedback} />
       <Header title='statistics'/>
       <Paragraph feedback={setFeedback} />
+      <Details title="all" value={total} />
+      <Details title="average" value={avg} />
+      <Details title="percent" value={prcnt} />
     </div>
   )
 }
