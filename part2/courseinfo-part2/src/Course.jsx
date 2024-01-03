@@ -87,5 +87,5 @@ const Course = () => {
         </div>
     )
 }
-
+//the component was separate from the beggining of exercise
 export default Course
