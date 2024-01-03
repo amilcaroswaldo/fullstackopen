@@ -28,8 +28,8 @@ const Content = (props) => {
 
 const Total = (props) => {
     const parts = [...props.parts];
-    let total = 0;
-    parts.forEach(part => total += part.exercises);
+    const arrExercises = parts.map(el => el.exercises);
+    const total = arrExercises.reduce((accumulator, currentValue) => Number(accumulator) + Number(currentValue), 0);
     return (
         <div>
             <b>Total of {total} exercises</b>
