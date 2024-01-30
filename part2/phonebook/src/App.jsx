@@ -25,11 +25,19 @@ const App = () => {
       setPersons(persons.concat(objName))
     }
   }
+  const deleteName = event =>{
+    event.preventDefault()
+    if (window.confirm(`are you sure to delete ${event.target.name}??`)) {
+      const id = event.target.id;
+      const arrDelete = persons.filter(p => p.id !== id)
+      notes.Delete(id).then(res => console.log(res))
+    }
+  }
   return (
     <div>
       <FilterPerson persons={persons} setPersons={setPersons} />
       <FormPersons addName={addName} newName={newName} setNewName={setNewName} newNumber={newNumber} setNumber={setNumber} />
-      <ListPerson persons={persons} />
+      <ListPerson persons={persons} handleDelete={deleteName} />
     </div>
   )
 }
