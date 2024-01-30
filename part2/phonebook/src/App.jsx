@@ -13,19 +13,25 @@ const App = () => {
   const [newNumber, setNumber] = useState('')
   const addName = (event) => {
     event.preventDefault()
-    const findDuplicates = persons.findIndex(person => person.name === newName)
-    if (findDuplicates !== -1) {
-      alert(`${newName} is already added to phonebook`)
+    const findDuplicates = persons.filter(person => person.name === newName)
+    console.log(findDuplicates[0]);
+    if (findDuplicates[0] !== undefined) {
+      if (window.confirm(`${event.target.name} is already exist, do you want update with new number`)) {
+        const objName = {
+          id: findDuplicates[0].id, name: newName, number: newNumber
+        }
+        notes.update(findDuplicates[0].id, objName).then(res => console.log(res));
+      }
     }
     else {
       const objName = {
         name: newName, number: newNumber
       }
-      notes.create(objName).then(response=> console.log(response))
+      notes.create(objName).then(response => console.log(response))
       setPersons(persons.concat(objName))
     }
   }
-  const deleteName = event =>{
+  const deleteName = event => {
     event.preventDefault()
     if (window.confirm(`are you sure to delete ${event.target.name}??`)) {
       const id = event.target.id;
