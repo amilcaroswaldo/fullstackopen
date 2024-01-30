@@ -2,14 +2,13 @@ import { useState } from 'react'
 import ListPerson from './ListPersons';
 import FormPersons from './FormPersons';
 import FilterPerson from './FilterPerson';
-import axios from 'axios'
-const baseUrl = 'http://localhost:3001/persons'
+import notes from './services/notes';
 
 const App = () => {
   const [persons, setPersons] = useState([
     {}
   ])
-  axios.get(baseUrl).then(response => setPersons(response.data))
+  notes.getAll().then(response => setPersons(response))
   const [newName, setNewName] = useState('')
   const [newNumber, setNumber] = useState('')
   const addName = (event) => {
@@ -22,7 +21,7 @@ const App = () => {
       const objName = {
         name: newName, number: newNumber
       }
-      axios.post(baseUrl, objName).then(response => console.log('exito'))
+      notes.create(objName).then(response=> console.log(response))
       setPersons(persons.concat(objName))
     }
   }
